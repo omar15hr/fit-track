@@ -2,7 +2,7 @@
 
 export function Header() {
   return (
-    <div className="bg-[#006d77] py-6 md:h-20 flex items-center shadow-md">
+    <div className="bg-gradient-to-r from-[#006d77] via-[#018894] to-[#00919e] py-6 md:h-20 flex items-center shadow-md">
       <div className="flex flex-col gap-8 mx-auto w-11/12 max-w-6xl">
         <div className="flex justify-between gap-4 md:gap-10 items-center">
           <h1 className="text-3xl md:text-4xl text-white font-bold">

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@midudev/tailwind-animations':
+        specifier: ^0.2.0
+        version: 0.2.0(tailwindcss@4.1.5)
       '@tailwindcss/vite':
         specifier: ^4.1.5
         version: 4.1.5(vite@6.3.5(jiti@2.4.2)(lightningcss@1.29.2))
@@ -264,6 +267,11 @@ packages:
   '@humanwhocodes/retry@0.4.2':
     resolution: {integrity: sha512-xeO57FpIu4p1Ri3Jq/EXq4ClRm86dVF2z/+kvFnyqVYRavTZmaFaUBbWCOuuTh0o/g7DSsk6kc2vrS4Vl5oPOQ==}
     engines: {node: '>=18.18'}
+
+  '@midudev/tailwind-animations@0.2.0':
+    resolution: {integrity: sha512-4mktb060dA7SZz0LjMfhBT30HWPmQENwF4AJC7/etESWohe4pukST0ohC2yAePS5GNinhY3MXmZZ8//2ywafOQ==}
+    peerDependencies:
+      tailwindcss: ^3.0.0 || ^4.0.0
 
   '@modelcontextprotocol/sdk@1.11.0':
     resolution: {integrity: sha512-k/1pb70eD638anoi0e8wUGAlbMJXyvdV4p62Ko+EZ7eBe1xMx8Uhak1R5DgfoofsK5IBBnRwsYGTaLZl+6/+RQ==}
@@ -1583,6 +1591,10 @@ snapshots:
   '@humanwhocodes/retry@0.3.1': {}
 
   '@humanwhocodes/retry@0.4.2': {}
+
+  '@midudev/tailwind-animations@0.2.0(tailwindcss@4.1.5)':
+    dependencies:
+      tailwindcss: 4.1.5
 
   '@modelcontextprotocol/sdk@1.11.0':
     dependencies:
