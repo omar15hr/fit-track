@@ -6,6 +6,9 @@ function App() {
     <>
       <Header />
       <div className="p-5">
+        
+      </div>
+      <div className="flex gap-5 p-5">
         <ExerciseCard />
       </div>
     </>

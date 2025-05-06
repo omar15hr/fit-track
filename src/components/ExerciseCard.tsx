@@ -43,7 +43,7 @@ export function ExerciseCard() {
             <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
             <path d="M13.5 6.5l4 4" />
           </svg>
-          <span className="text-sm">Edit</span>
+          <span className="text-sm">Editar</span>
         </button>
         <button className="flex gap-1 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full px-4 cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
           <svg
@@ -65,7 +65,7 @@ export function ExerciseCard() {
             <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
             <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
           </svg>
-          <span className="text-sm">Delete</span>
+          <span className="text-sm">Borrar</span>
         </button>
       </div>
     </div>
