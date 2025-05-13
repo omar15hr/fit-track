@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { NotebookTabs, Home, Dumbbell, LogOut, Settings } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -9,32 +9,33 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { ModeToggle } from "./mode-toggle";
 
 const items = [
   {
     title: "Inicio",
-    url: "#",
+    url: "/",
     icon: Home,
   },
   {
     title: "Mi rutina",
-    url: "#",
-    icon: Inbox,
+    url: "rutine",
+    icon: Dumbbell,
   },
   {
     title: "Catálogo de Ejercicios",
-    url: "#",
-    icon: Calendar,
+    url: "catalog",
+    icon: NotebookTabs,
   },
   {
     title: "Configuración",
     url: "#",
-    icon: Search,
+    icon: Settings,
   },
   {
     title: "Cerrar Sesión",
     url: "#",
-    icon: Settings,
+    icon: LogOut,
   },
 ];
 
@@ -43,7 +44,12 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xl font-bold mb-2">Fit Track</SidebarGroupLabel>
+          <div className="flex items-center justify-between">
+            <SidebarGroupLabel className="text-xl font-bold mb-2">
+              Fit Track
+            </SidebarGroupLabel>
+            <ModeToggle />
+          </div>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
