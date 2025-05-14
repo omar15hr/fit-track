@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Plus, Save, X } from "lucide-react";
+import { Plus, Save } from "lucide-react";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,10 +15,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
 import { ExerciseInput } from "./exercise-input";
 import { BodyPartSelector } from "./bodypart-selector";
+import { useRutineStore } from "@/app/store/store";
 
 const formSchema = z.object({
   day: z.string().min(1, {
@@ -31,26 +30,28 @@ const formSchema = z.object({
 
 interface Exercise {
   name: string;
-  reps: string;
-  sets: string;
+  reps: number;
+  sets: number;
 }
 
+const bodyParts = [
+  "Pecho",
+  "Espalda",
+  "Hombros",
+  "Bíceps",
+  "Tríceps",
+  "Cuádriceps",
+  "Isquiotibiales",
+  "Glúteos",
+  "Pantorrillas",
+  "Abdominales",
+  "Lumbares",
+  "Antebrazos",
+  "Trapecio",
+];
+
 export default function RutineForm() {
-  const bodyParts = [
-    "Pecho",
-    "Espalda",
-    "Hombros",
-    "Bíceps",
-    "Tríceps",
-    "Cuádriceps",
-    "Isquiotibiales",
-    "Glúteos",
-    "Pantorrillas",
-    "Abdominales",
-    "Lumbares",
-    "Antebrazos",
-    "Trapecio",
-  ];
+  const addRutine = useRutineStore((state) => state.addRutine);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -62,7 +63,7 @@ export default function RutineForm() {
 
   const [selectedParts, setSelectedParts] = useState<string[]>([]);
   const [exercises, setExercises] = useState<Exercise[]>([
-    { name: "", reps: "", sets: "" },
+    { name: "", reps: 1, sets: 1 },
   ]);
 
   const handleSelectBodyPart = (part: string) => {
@@ -82,15 +83,19 @@ export default function RutineForm() {
   const handleInputChange = (
     index: number,
     field: keyof Exercise,
-    value: string
+    value: number | string
   ) => {
     const updatedExercises = [...exercises];
-    updatedExercises[index][field] = value;
+    if (field === 'name') {
+      updatedExercises[index][field] = value as string;
+    } else {
+      updatedExercises[index][field] = value as number;
+    }
     setExercises(updatedExercises);
   };
 
   const addExercise = () => {
-    setExercises([...exercises, { name: "", reps: "", sets: "" }]);
+    setExercises([...exercises, { name: "", reps: 1, sets: 1 }]);
   };
 
   const removeExercise = (index: number) => {
@@ -102,11 +107,15 @@ export default function RutineForm() {
   };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Formulario enviado:", { ...values, exercises });
-    // Aquí iría la lógica para guardar la rutina
+    addRutine({
+      id: uuid(),
+      day: values.day,
+      bodyParts: values.selectedBodyParts,
+      exercises,
+    });
     form.reset();
     setSelectedParts([]);
-    setExercises([{ name: "", reps: "", sets: "" }]);
+    setExercises([{ name: "", reps: 1, sets: 1 }]);
   }
 
   return (
@@ -176,3 +185,7 @@ export default function RutineForm() {
     </div>
   );
 }
+function uuid(): string {
+  throw new Error("Function not implemented.");
+}
+

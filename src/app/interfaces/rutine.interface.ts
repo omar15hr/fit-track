@@ -4,7 +4,7 @@ export interface Rutine {
   bodyParts: string[];
   exercises: {
     name: string;
-    reps: string;
+    reps: number;
     sets: number;
   }[];
 }

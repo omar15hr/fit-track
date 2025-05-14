@@ -5,8 +5,8 @@ import { X } from "lucide-react";
 
 interface Exercise {
   name: string;
-  reps: string;
-  sets: string;
+  reps: number;
+  sets: number;
 }
 
 interface ExerciseInputProps {
@@ -14,7 +14,7 @@ interface ExerciseInputProps {
   index: number;
   exercises: Exercise[];
   onRemove: (index: number) => void;
-  onChange: (index: number, field: keyof Exercise, value: string) => void;
+  onChange: (index: number, field: keyof Exercise, value: number) => void;
 }
 
 export function ExerciseInput({
@@ -52,7 +52,7 @@ export function ExerciseInput({
               id={`exercise-name-${index}`}
               placeholder="Ej: Sentadillas"
               value={exercise.name}
-              onChange={(e) => onChange(index, "name", e.target.value)}
+              onChange={(e) => onChange(index, "name", parseInt(e.target.value))}
               required
             />
           </div>
@@ -71,7 +71,7 @@ export function ExerciseInput({
                 min="1"
                 placeholder="12"
                 value={exercise.reps}
-                onChange={(e) => onChange(index, "reps", e.target.value)}
+                onChange={(e) => onChange(index, "reps", parseInt(e.target.value))}
                 required
                 className="w-full"
               />
@@ -90,7 +90,7 @@ export function ExerciseInput({
                 min="1"
                 placeholder="3"
                 value={exercise.sets}
-                onChange={(e) => onChange(index, "sets", e.target.value)}
+                onChange={(e) => onChange(index, "sets", parseInt(e.target.value))}
                 required
                 className="w-full"
               />

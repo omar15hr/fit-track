@@ -6,7 +6,7 @@ import { Rutine } from "../interfaces/rutine.interface";
 interface State {
   // Rutine
   rutine: Rutine[];
-  deletedRutine: Rutine[];
+  addRutine: (rutine: Rutine) => void;
 }
 
 const initialState: Rutine[] = [
@@ -15,10 +15,10 @@ const initialState: Rutine[] = [
     day: "Monday",
     bodyParts: ["Chest", "Triceps"],
     exercises: [
-      { name: "Bench Press", reps: "10-12 reps", sets: 4 },
-      { name: "Incline Dumbbell Press", reps: "10-12 reps", sets: 3 },
-      { name: "Tricep Pushdowns", reps: "12-15 reps", sets: 3 },
-      { name: "Overhead Tricep Extension", reps: "12-15 reps", sets: 3 },
+      { name: "Bench Press", reps: 10, sets: 4 },
+      { name: "Incline Dumbbell Press", reps: 12, sets: 3 },
+      { name: "Tricep Pushdowns", reps: 12, sets: 3 },
+      { name: "Overhead Tricep Extension", reps: 12, sets: 3 },
     ],
   },
   {
@@ -26,10 +26,10 @@ const initialState: Rutine[] = [
     day: "Wednesday",
     bodyParts: ["Back", "Biceps"],
     exercises: [
-      { name: "Pull-ups", reps: "8-10 reps", sets: 4 },
-      { name: "Barbell Rows", reps: "10-12 reps", sets: 3 },
-      { name: "Bicep Curls", reps: "12-15 reps", sets: 3 },
-      { name: "Hammer Curls", reps: "12-15 reps", sets: 3 },
+      { name: "Pull-ups", reps: 8, sets: 4 },
+      { name: "Barbell Rows", reps: 12, sets: 3 },
+      { name: "Bicep Curls", reps: 12, sets: 3 },
+      { name: "Hammer Curls", reps: 12, sets: 3 },
     ],
   },
   {
@@ -37,10 +37,10 @@ const initialState: Rutine[] = [
     day: "Friday",
     bodyParts: ["Legs", "Shoulders"],
     exercises: [
-      { name: "Squats", reps: "8-10 reps", sets: 4 },
-      { name: "Leg Press", reps: "10-12 reps", sets: 3 },
-      { name: "Shoulder Press", reps: "10-12 reps", sets: 3 },
-      { name: "Lateral Raises", reps: "12-15 reps", sets: 3 },
+      { name: "Squats", reps: 8, sets: 4 },
+      { name: "Leg Press", reps: 12, sets: 3 },
+      { name: "Shoulder Press", reps: 12, sets: 3 },
+      { name: "Lateral Raises", reps: 12, sets: 3 },
     ],
   },
 ];
@@ -50,7 +50,11 @@ export const useRutineStore = create<State>()(
     (set, get) => ({
       // Rutine
       rutine: initialState,
-      deletedRutine: [],
+      addRutine: (rutine: Rutine) => {
+        set((state) => ({
+          rutine: [...state.rutine, rutine],
+        }));
+      },
     }),
     {
       name: "rutine-store",
