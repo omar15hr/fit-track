@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { RutineForm } from "@/components/rutine-form";
+import RutineForm from "@/components/form/rutine-form";
 
 export default function Rutine() {
   const rutine = useRutineStore((state) => state.rutine);
@@ -38,7 +38,7 @@ export default function Rutine() {
           <DialogHeader>
             <DialogTitle>Crear Rutina</DialogTitle>
             <DialogDescription>
-              Completa el formulario para crear una nueva rutina de entrenamiento
+              Ingresa tu nueva rutina de entrenamiento
             </DialogDescription>
           </DialogHeader>
           <RutineForm />
