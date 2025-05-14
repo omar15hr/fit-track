@@ -14,7 +14,7 @@ interface ExerciseInputProps {
   index: number;
   exercises: Exercise[];
   onRemove: (index: number) => void;
-  onChange: (index: number, field: keyof Exercise, value: number) => void;
+  onChange: (index: number, field: keyof Exercise, value: string | number) => void;
 }
 
 export function ExerciseInput({
@@ -52,7 +52,8 @@ export function ExerciseInput({
               id={`exercise-name-${index}`}
               placeholder="Ej: Sentadillas"
               value={exercise.name}
-              onChange={(e) => onChange(index, "name", parseInt(e.target.value))}
+              type="text"
+              onChange={(e) => onChange(index, "name", e.target.value)}
               required
             />
           </div>

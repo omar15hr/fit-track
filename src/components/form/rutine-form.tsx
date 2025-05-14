@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { ExerciseInput } from "./exercise-input";
 import { BodyPartSelector } from "./bodypart-selector";
 import { useRutineStore } from "@/app/store/store";
+import { v4 as uuid } from "uuid";
 
 const formSchema = z.object({
   day: z.string().min(1, {
@@ -32,6 +33,10 @@ interface Exercise {
   name: string;
   reps: number;
   sets: number;
+}
+
+interface RutineFormProps {
+  onClose: () => void;
 }
 
 const bodyParts = [
@@ -50,7 +55,7 @@ const bodyParts = [
   "Trapecio",
 ];
 
-export default function RutineForm() {
+export default function RutineForm({ onClose }: RutineFormProps) {
   const addRutine = useRutineStore((state) => state.addRutine);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -116,6 +121,7 @@ export default function RutineForm() {
     form.reset();
     setSelectedParts([]);
     setExercises([{ name: "", reps: 1, sets: 1 }]);
+    onClose();
   }
 
   return (
@@ -184,8 +190,5 @@ export default function RutineForm() {
       </Form>
     </div>
   );
-}
-function uuid(): string {
-  throw new Error("Function not implemented.");
 }
 

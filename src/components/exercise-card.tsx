@@ -19,7 +19,7 @@ import { MoreVertical, Pencil, Trash2 } from "lucide-react";
 
 interface Exercise {
   name: string;
-  reps: string;
+  reps: number;
   sets: number;
 }
 
