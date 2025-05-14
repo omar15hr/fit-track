@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { ExerciseInput } from "./exercise-input";
+import { BodyPartSelector } from "./bodypart-selector";
 
 const formSchema = z.object({
   day: z.string().min(1, {
@@ -108,111 +109,65 @@ export default function RutineForm() {
     setExercises([{ name: "", reps: "", sets: "" }]);
   }
 
-
-
-  const BodyPartSelector = () => (
-    <div className="space-y-4">
-      <div className="space-y-2">
-        <FormLabel>Partes del cuerpo</FormLabel>
-        <div className="flex flex-wrap gap-2">
-          {bodyParts.map((part) => (
-            <Badge
-              key={part}
-              variant="outline"
-              className={cn(
-                "cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors",
-                selectedParts.includes(part) &&
-                  "bg-primary text-primary-foreground"
-              )}
-              onClick={() => handleSelectBodyPart(part)}
-            >
-              {part}
-            </Badge>
-          ))}
-        </div>
-      </div>
-
-      {selectedParts.length > 0 && (
-        <div className="space-y-2">
-          <FormLabel>Partes seleccionadas</FormLabel>
-          <div className="flex flex-wrap gap-2">
-            {selectedParts.map((part) => (
-              <Badge
-                key={part}
-                variant="default"
-                className="flex items-center gap-1"
-              >
-                {part}
-                <X
-                  className="h-3 w-3 cursor-pointer hover:text-destructive"
-                  onClick={() => handleRemoveBodyPart(part)}
-                />
-              </Badge>
-            ))}
-          </div>
-          {form.formState.errors.selectedBodyParts && (
-            <p className="text-sm font-medium text-destructive">
-              {form.formState.errors.selectedBodyParts.message}
-            </p>
-          )}
-        </div>
-      )}
-    </div>
-  );
-
   return (
     <div className="max-h-[85vh] overflow-y-auto p-1">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-6">
-          <FormField
-            control={form.control}
-            name="day"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Día de la rutina</FormLabel>
-                <FormControl>
-                  <Input placeholder="Ej: Lunes" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="day"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Día de la rutina</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Ej: Lunes" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <BodyPartSelector />
+            <BodyPartSelector
+              bodyParts={bodyParts}
+              selectedParts={selectedParts}
+              onSelect={handleSelectBodyPart}
+              onRemove={handleRemoveBodyPart}
+              errorMessage={form.formState.errors.selectedBodyParts?.message}
+            />
 
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-medium">Ejercicios</h3>
-              <span className="text-sm text-muted-foreground">{exercises.length} ejercicio(s)</span>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-medium">Ejercicios</h3>
+                <span className="text-sm text-muted-foreground">
+                  {exercises.length} ejercicio(s)
+                </span>
+              </div>
+
+              <div className="max-h-[400px] overflow-y-auto pr-2 space-y-4">
+                {exercises.map((exercise, index) => (
+                  <ExerciseInput
+                    key={index}
+                    exercise={exercise}
+                    index={index}
+                    exercises={exercises}
+                    onRemove={removeExercise}
+                    onChange={handleInputChange}
+                  />
+                ))}
+              </div>
+
+              <Button
+                type="button"
+                variant="outline"
+                onClick={addExercise}
+                className="w-full cursor-pointer"
+              >
+                <Plus className="h-4 w-4 mr-2" /> Añadir Otro Ejercicio
+              </Button>
             </div>
-            
-            <div className="max-h-[400px] overflow-y-auto pr-2 space-y-4">
-              {exercises.map((exercise, index) => (
-                <ExerciseInput 
-                  key={index} 
-                  exercise={exercise} 
-                  index={index} 
-                  exercises={exercises}
-                  onRemove={removeExercise}
-                  onChange={handleInputChange}
-                />
-              ))}
-            </div>
-            
-            <Button
-              type="button"
-              variant="outline"
-              onClick={addExercise}
-              className="w-full cursor-pointer"
-            >
-              <Plus className="h-4 w-4 mr-2" /> Añadir Otro Ejercicio
-            </Button>
-          </div>
-          </div>
 
-          <div>
-            <Button type="submit" className="w-full mt-4 cursor-pointer">
+            <Button type="submit" className="w-full cursor-pointer">
               <Save className="h-4 w-4 mr-2" /> Guardar Rutina
             </Button>
           </div>
